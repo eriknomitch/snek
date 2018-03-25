@@ -20,38 +20,30 @@
 
 (defun ensure-filename (fn postfix)
   (let ((fn* (append-postfix (if fn fn "tmp") postfix)))
-    (format t "~%file: ~a~%~%" fn*)
+    (format t "~%file: ~a~%" fn*)
     fn*))
-
 
 (defun print-every (i n)
   (when (= 0 (mod i n)) (format t "~%itt: ~a~%" i)))
-
 
 (defun dhalf (l)
   (declare (double-float l))
   (* l 0.5d0))
 
-
 (defun half (l)
   (/ l 2))
-
 
 (defun make-dfloat-array (rows &key (cols 2) (initial 0.0d0))
   (make-array (list rows cols) :initial-element initial :element-type 'double-float))
 
-
 (defun make-symb-array (rows &key (initial nil))
   (make-array rows :initial-element initial :element-type 'symbol))
-
 
 (defun make-int-array (rows  &key (cols 2) (initial 0))
   (make-array (list rows cols) :initial-element initial :element-type 'integer))
 
-
 (defun make-generic-array (&optional (s 100))
   (make-array s :fill-pointer 0 :initial-element nil :adjustable t))
-
 
 (defun to-array (init)
   (declare (list init))

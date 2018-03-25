@@ -11,35 +11,37 @@
     (lin-path:pos* (lin-path:make vv) (math:linspace 100 0 0.99))
     1d0 20))
 
+(setf *arms* 20)
 
 (defun draw-path (sand fn n rad mid)
   (let ((curr nil)
         (i 0))
 
-    (loop for a from 0 below 10 do
-      (labels ((new-append-edge-alt* (snk a)
-                 (if (<= (length (snek:verts-in-rad snk (snek::append-edge-alt-xy a) rad)) 1)
-                   (aif (snek::do-append-edge-alt snk a)
-                     (progn
-                       (incf i)
-                       (setf curr it)
-                       (sandpaint:set-fg-color sand (color:rgb 1.0 1.0 1.0 0.01))
-                       (sandpaint:circ sand (list (snek::append-edge-alt-xy a)) 4d0 3000)
-                       (sandpaint:set-fg-color sand (color:white 0.01))
-                       (circ-stroke sand (snek:get-verts snk (list it (snek::append-edge-alt-v a))))
-                       (sandpaint:save sand (format nil "exports/~a-~3,'0d" fn i)))))))
+    (loop for a from 0 below *arms* do
+      (let ((weight (* (/ a *arms*) 0.01)))
+        (labels ((new-append-edge-alt* (snk a)
+                   (if (<= (length (snek:verts-in-rad snk (snek::append-edge-alt-xy a) rad)) 1)
+                     (aif (snek::do-append-edge-alt snk a)
+                       (progn
+                         (incf i)
+                         (setf curr it)
+                         (sandpaint:set-fg-color sand (color:rgb 1.0 1.0 1.0 weight))
+                         (sandpaint:circ sand (list (snek::append-edge-alt-xy a)) 4d0 3000)
+                         (sandpaint:set-fg-color sand (color:white weight))
+                         (circ-stroke sand (snek:get-verts snk (list it (snek::append-edge-alt-v a))))
+                         (sandpaint:save sand (format nil "exports/~a-~3,'0d" fn i)))))))
 
-        (let ((snk (snek:make
-                     :max-verts n
-                     :alts `((snek::append-edge-alt ,#'new-append-edge-alt*)))))
+          (let ((snk (snek:make
+                       :max-verts n
+                       :alts `((snek::append-edge-alt ,#'new-append-edge-alt*)))))
 
-          (setf curr (snek:add-vert! snk mid))
+            (setf curr (snek:add-vert! snk mid))
 
-          (loop for i from 0 below n do
-            (snek:with (snk :zwidth rad)
-              (snek:append-edge?
-                curr (vec:add (snek:get-vert snk curr) (rnd:in-circ rad))
-                :rel nil))))))))
+            (loop for i from 0 below n do
+              (snek:with (snk :zwidth rad)
+                (snek:append-edge?
+                  curr (vec:add (snek:get-vert snk curr) (rnd:in-circ rad))
+                  :rel nil)))))))))
 
 
 (defun main (size fn)
