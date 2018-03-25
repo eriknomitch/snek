@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-ffmpeg -i exports/custom-alt.lisp-%03d.png -c:v libx264 -r 30 out.mp4
-#ffmpeg -i exports/hyphae.lisp-%08d.png -c:v libx264 -r 30 out.mp4
-
