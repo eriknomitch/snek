@@ -1,6 +1,7 @@
-#!/usr/bin/sbcl --script
+#!/usr/bin/env sbcl --script
 
 (load "../src/load")
+(asdf:load-system "snek")
 
 (setf *print-pretty* t)
 (setf *random-state* (make-random-state t))
@@ -13,8 +14,8 @@
         (grains 3)
         (itt 1000)
         (sand (sandpaint:make size
-                :fg (color:black 0.01)
-                :bg (color:white))))
+                :fg (color:white 0.01)
+                :bg (color:black))))
 
     (loop for i in (math:linspace repeat 100 900)
           for j from 1 to repeat do

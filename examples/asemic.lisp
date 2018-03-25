@@ -1,6 +1,7 @@
-#!/usr/bin/sbcl --script
+#!/usr/bin/env sbcl --script
 
 (load "../src/load")
+(asdf:load-system "snek")
 (load "../utils/state")
 
 (setf *print-pretty* t)

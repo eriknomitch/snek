@@ -1,6 +1,7 @@
-#!/usr/bin/sbcl --script
+#!/usr/bin/env sbcl --script
 
 (load "../src/load")
+(asdf:load-system "snek")
 (load "../utils/text")
 (load "../utils/text-sample")
 (load "../utils/spline-script")
