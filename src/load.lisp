@@ -4,7 +4,7 @@
 (proclaim '(inline last1 single append1 conc1 mklist))
 ;(declaim '(optimize (debug 3)))
 
-(load "~/quicklisp/setup.lisp")
+(load "~/.quicklisp/setup.lisp")
 
 
 (ql:quickload "zpng")
@@ -34,12 +34,12 @@
                (:file "plot-svg")
                (:file "obj")
                (:file "zmap")
-               (:file "snek-macros")
                (:file "snek")
+               (:file "snek-macros")
                (:file "snek-utils")
                (:file "snek-alterations")
                (:file "snek-alterations-mutate")
                (:file "snek-extra")))
 
-(asdf:load-system "snek")
+; (asdf:load-system "snek")
 

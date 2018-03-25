@@ -1,6 +1,7 @@
-#!/usr/bin/sbcl --script
+#!/usr/bin/env sbcl --script
 
 (load "../src/load")
+(asdf:load-system "snek")
 
 (setf *print-pretty* t)
 (setf *random-state* (make-random-state t))
@@ -21,11 +22,11 @@
                    (progn
                      (incf i)
                      (setf curr it)
-                     (sandpaint:set-fg-color sand (color:rgb 0.0 0.7 0.7 0.01))
+                     (sandpaint:set-fg-color sand (color:rgb 1.0 1.0 1.0 0.01))
                      (sandpaint:circ sand (list (snek::append-edge-alt-xy a)) 4d0 3000)
-                     (sandpaint:set-fg-color sand (color:black 0.01))
+                     (sandpaint:set-fg-color sand (color:white 0.01))
                      (circ-stroke sand (snek:get-verts snk (list it (snek::append-edge-alt-v a))))
-                     (sandpaint:save sand (format nil "~a-~3,'0d" fn i)))))))
+                     (sandpaint:save sand (format nil "exports/~a-~3,'0d" fn i)))))))
 
       (let ((snk (snek:make
                    :max-verts n
@@ -42,10 +43,10 @@
 
 (defun main (size fn)
   (let ((sand (sandpaint:make size
-                :fg (color:black 0.01)
-                :bg (color:white))))
+                :fg (color:white 0.01)
+                :bg (color:black))))
 
     (draw-path sand fn 5000 10.0d0 (vec:vec 250d0 250d0))))
 
-(time (main 500 (second (cmd-args))))
+(time (main 1000 (second (cmd-args))))
 

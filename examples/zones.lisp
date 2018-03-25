@@ -1,6 +1,7 @@
-#!/usr/bin/sbcl --script
+#!/usr/bin/env sbcl --script
 
 (load "../src/load")
+(asdf:load-system "snek")
 
 (setf *print-pretty* t)
 (setf *random-state* (make-random-state t))
@@ -13,8 +14,8 @@
         (snk (snek:make))
         (grains 3)
         (sand (sandpaint:make size
-                :fg (color:black 0.01)
-                :bg (color:white))))
+                :fg (color:white 0.01)
+                :bg (color:black))))
 
       (math:nrep 1000 (snek:add-vert! snk (rnd:in-box 500d0 500d0 :xy (vec:vec mid mid))))
 
@@ -23,7 +24,7 @@
           (print-every k 100)
           (snek:with (snk :zwidth 40.0d0)
             (snek:itr-all-verts (snk v)
-              (snek:move-vert? v (rnd:in-circ 0.7d0))
+              (snek:move-vert? v (rnd:in-circ 0.01d0))
               (let ((verts (snek:verts-in-rad snk (snek:get-vert snk v) 40.0d0)))
                 (if (> (length verts) 0)
                   (snek:join-verts? v (rnd:aget verts))))))

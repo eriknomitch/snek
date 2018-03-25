@@ -1,6 +1,7 @@
-#!/usr/bin/sbcl --script
+#!/usr/bin/env sbcl --script
 
 (load "../src/load")
+(asdf:load-system "snek")
 
 (setf *print-pretty* t)
 (setf *random-state* (make-random-state t))
@@ -8,15 +9,15 @@
 
 (defun main (size fn)
   (let ((itt 1000000)
-        (noise 0.000000005d0)
-        (grains 20)
+        (noise 0.0000005d0)
+        (grains 50)
         (sand (sandpaint:make size
                 :fg (color:white 0.05)
                 :bg (color:dark))))
 
 
     (let* (
-           (pts-1 (rnd:nin-box 6 1500d0 1500d0 :xy (vec:vec 1000d0 1000d0)))
+           (pts-1 (rnd:nin-box 6 1500d0 1500d0 :xy (vec:vec 100d0 1000d0)))
            (pts (rnd:nin-box 6 1500d0 1500d0 :xy (vec:vec 1000d0 1000d0)))
            ;(pts-a (math:nrep 5 (list 50.0d0 (rnd:rndbtwn 50 1950))))
            (pts-a (math:rep (p (math:linspace 5 50 1950)) (vec:vec 50.0d0 p)))
