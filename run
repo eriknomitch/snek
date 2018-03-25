@@ -1,6 +1,12 @@
 #!/bin/zsh
 
+
+_name="test"
+
 cd examples
-./custom-alt.lisp test && \
-  ffmpeg -y -i exports/test-%03d.png -c:v libx264 -r 30 out.mp4 &&
+
+rm -rf exports/$_name-*.png
+
+./custom-alt.lisp $_name && \
+  ffmpeg -y -i exports/$_name-%03d.png -c:v libx264 -r 30 out.mp4 &&
   alert
