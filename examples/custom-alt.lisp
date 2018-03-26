@@ -11,7 +11,7 @@
     (lin-path:pos* (lin-path:make vv) (math:linspace 100 0 0.99))
     1d0 20))
 
-(setf *arms* 20)
+(defconstant *arms* 3)
 
 (defun draw-path (sand fn n rad mid)
   (let ((curr nil)
@@ -25,10 +25,13 @@
                        (progn
                          (incf i)
                          (setf curr it)
-                         (sandpaint:set-fg-color sand (color:rgb 1.0 1.0 1.0 weight))
-                         (sandpaint:circ sand (list (snek::append-edge-alt-xy a)) 4d0 3000)
-                         (sandpaint:set-fg-color sand (color:white weight))
+                         (sandpaint:set-fg-color sand (color:rgb 1.0 1.0 1.0 0.01))
+                         (sandpaint:circ sand (list (snek::append-edge-alt-xy a)) 10d0 3000)
+                         (sandpaint:set-fg-color sand (color:white 0.01))
+                         ; (sandpaint:circ sand (list (snek::append-edge-alt-xy a)) 6d0 3000)
+                         ; (sandpaint:set-fg-color sand (color:rgb 1.0 0.0 0.0 0.1))
                          (circ-stroke sand (snek:get-verts snk (list it (snek::append-edge-alt-v a))))
+
                          (sandpaint:save sand (format nil "exports/~a-~3,'0d" fn i)))))))
 
           (let ((snk (snek:make

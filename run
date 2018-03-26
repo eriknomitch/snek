@@ -8,5 +8,5 @@ cd examples
 rm -rf exports/$_name-*.png
 
 ./custom-alt.lisp $_name && \
-  ffmpeg -y -i exports/$_name-%03d.png -c:v libx264 -r 30 out.mp4 &&
+  ffmpeg -y -i exports/$_name-%03d.png -c:v libx264 -r 30 -filter:v "setpts=0.5*PTS" out.mp4 &&
   alert
